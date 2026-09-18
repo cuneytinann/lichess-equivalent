@@ -13,7 +13,7 @@ Part of the [Golfstack](https://www.fidelite.art/) project.
 | file | interface | bytes | GitHub Pages | project site |
 | --- | --- | --- | --- | --- |
 | `index.html` | clickable board, clock, lichess colours | 2,901 | [lichess-equivalent](https://cuneytinann.github.io/lichess-equivalent/) | [Lichess-equivalent.html](https://www.fidelite.art/special/outofLevels/Lichess-equivalent.html) |
-| `numerical_packed.html` | square numbers typed into a `prompt()` box, no board | 1,228 | [numerical_packed.html](https://cuneytinann.github.io/lichess-equivalent/numerical_packed.html) | [numerical_Lichess-equivalent.html](https://www.fidelite.art/special/outofLevels/numerical_Lichess-equivalent.html) |
+| `numerical_packed.html` | square numbers typed into a `prompt()` box, no board | 1,228 | [numerical_packed.html](https://cuneytinann.github.io/lichess-equivalent/numerical_packed.html) | [Lichess-equivalent_numerical.html](https://www.fidelite.art/special/outofLevels/Lichess-equivalent_numerical.html) |
 
 On the project site both builds live under `special/outofLevels`, off to the side of the `L1`–`L3` ladder. They are not another rung on it; they follow a different rulebook.
 
@@ -220,7 +220,7 @@ FIDE'nin değil, **lichess'in kurallarıyla** hükmeden bir satranç hakemi; tek
 | dosya | arayüz | bayt | GitHub Pages | proje sitesi |
 | --- | --- | --- | --- | --- |
 | `index.html` | tıklanabilir tahta, saat, lichess renkleri | 2.901 | [lichess-equivalent](https://cuneytinann.github.io/lichess-equivalent/) | [Lichess-equivalent.html](https://www.fidelite.art/special/outofLevels/Lichess-equivalent.html) |
-| `numerical_packed.html` | `prompt()` kutusuna yazılan kare numaraları, tahta yok | 1.228 | [numerical_packed.html](https://cuneytinann.github.io/lichess-equivalent/numerical_packed.html) | [numerical_Lichess-equivalent.html](https://www.fidelite.art/special/outofLevels/numerical_Lichess-equivalent.html) |
+| `numerical_packed.html` | `prompt()` kutusuna yazılan kare numaraları, tahta yok | 1.228 | [numerical_packed.html](https://cuneytinann.github.io/lichess-equivalent/numerical_packed.html) | [Lichess-equivalent_numerical.html](https://www.fidelite.art/special/outofLevels/Lichess-equivalent_numerical.html) |
 
 Proje sitesinde iki sürüm de `special/outofLevels` altında, `L1`–`L3` merdiveninin bir kenarında durur. O merdivenin bir basamağı değildirler; başka bir kural kitabını izlerler.
 
