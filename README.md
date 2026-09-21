@@ -2,7 +2,7 @@
 
 # lichess-equivalent
 
-A chess arbiter that plays by **lichess's rules** rather than FIDE's, in a single HTML file of **2,901 bytes** — and the same arbiter stripped of its board, in **1,228**. Two players, one screen. No libraries, no build step, no server. Download a file, double-click, play.
+A chess arbiter that plays by **lichess's rules** rather than FIDE's, in a single HTML file of **3,043 bytes** — and the same arbiter stripped of its board, in **1,228**. Two players, one screen. No libraries, no build step, no server. Download a file, double-click, play.
 
 The two rulebooks are close, but they are not the same book, and every place they part ways is written down below.
 
@@ -12,14 +12,14 @@ Part of the [Golfstack](https://www.fidelite.art/) project.
 
 | file | interface | bytes | GitHub Pages | project site |
 | --- | --- | --- | --- | --- |
-| `index.html` | clickable board, clock, lichess colours | 2,901 | [lichess-equivalent](https://cuneytinann.github.io/lichess-equivalent/) | [Lichess-equivalent.html](https://www.fidelite.art/special/outofLevels/Lichess-equivalent.html) |
+| `index.html` | clickable board, clock, lichess colours | 3,043 | [lichess-equivalent](https://cuneytinann.github.io/lichess-equivalent/) | [Lichess-equivalent.html](https://www.fidelite.art/special/Lichess-equivalent.html) |
 | `numerical_packed.html` | square numbers typed into a `prompt()` box, no board | 1,228 | [numerical_packed.html](https://cuneytinann.github.io/lichess-equivalent/numerical_packed.html) | [Lichess-equivalent_numerical.html](https://www.fidelite.art/special/outofLevels/Lichess-equivalent_numerical.html) |
 
 On the project site both builds live under `special/outofLevels`, off to the side of the `L1`–`L3` ladder. They are not another rung on it; they follow a different rulebook.
 
 Anything from late 2020 onwards will run them: Chrome 85+, Firefox 79+, Safari 14+. Three things set that floor — BigInt, which the starting position is written with; the `safe` keyword in `place-content`, which keeps the board reachable on a narrow screen; and the `||=` operator, which the packed build uses.
 
-**On the board.** Click a piece, then click where it should go. Legal squares pick up a dot, a piece you can take picks up a ring, the square you came from and the square you landed on stay tinted, and a king in check glows red. After every move the board turns around to face whoever is to play. `½` offers a draw, or claims one when you are entitled to it; `⚐` resigns. The clock starts at ten minutes and hands back five seconds a move.
+**On the board.** Click a piece, then click where it should go. Legal squares pick up a dot, a piece you can take picks up a ring, the square you came from and the square you landed on stay tinted, and a king in check glows red. After every move the board turns around to face whoever is to play. When a pawn reaches the last rank the file it landed on turns into the picker: the four promotion choices sit stacked on the board itself, each on a grey disc, and you click the one you want. `½` offers a draw, or claims one when you are entitled to it, and it lights up on its own when the offer is yours to answer or the position has come round for the third time; `⚐` resigns. The two controls sit side by side and look alike on purpose — same height, white on colour, green for the draw and red for the resignation. The clock starts at ten minutes and hands back five seconds a move.
 
 **Without the board.** `numerical_packed.html` draws nothing at all. Squares are numbered 1 to 64, a1 through h8, and a move is the two numbers written end to end: e2–e4 is `1329`. To promote, add a fifth digit — `0` bishop, `1` rook, `2` knight, anything else queen. A draw is offered the same way, by hanging a non-digit on the end of the move: `1329x` plays e2–e4 with an offer attached. Type the non-digit on its own and the offer still stands, but you owe a move afterwards. The opponent accepts by answering in kind; a plain move declines it and wipes it off. If the position has already come up three times, that same non-digit claims the threefold outright. To resign, leave the box empty or press Cancel.
 
@@ -29,9 +29,9 @@ That is the one place the two builds part company, and it is a difference of ges
 
 These are not a full version and a cut-down one. Same game, same rules, same core — and **1,228 bytes is what that core really costs.** Everything on top of it exists for you, not for chess.
 
-The 1,673 bytes `index.html` spends beyond the packed file buy a board you can see, pieces you can click, a clock that ticks, a promotion picker, colours that tell you which squares are open. Strip all of it away and not one rule moves. Mate is still mate, en passant is still en passant, the fifty-move counter still fills on exactly the same ply.
+The 1,815 bytes `index.html` spends beyond the packed file buy a board you can see, pieces you can click, a clock that ticks, a promotion picker drawn onto the board, colours that tell you which squares are open. Strip all of it away and not one rule moves. Mate is still mate, en passant is still en passant, the fifty-move counter still fills on exactly the same ply.
 
-So the two files answer two different questions. *What does it cost to referee a game of chess?* Twelve hundred bytes. *What does it cost to let a human enjoy one?* Another sixteen hundred.
+So the two files answer two different questions. *What does it cost to referee a game of chess?* Twelve hundred bytes. *What does it cost to let a human enjoy one?* Another eighteen hundred.
 
 That is a claim worth measuring rather than asserting, so both builds were run side by side. First their rule layers, move for move: 21,410 plies, with the legal-move list of every piece belonging to the side to play compared square by square, and the board, the side to move, the en passant square, the castling rights, the halfmove clock and the material verdicts compared after each one. 142,253 comparisons, not a single disagreement. Then fifty complete games, played by clicking in Chrome and replayed digit by digit through the `prompt()` box — 16,630 plies, the same result code every time.
 
@@ -115,24 +115,24 @@ Every byte of `index.html`, by part.
 
 | part | bytes | |
 | --- | --- | --- |
-| markup and CSS | 637 | board, panel, picker, colours, layout |
+| markup and CSS | 629 | board, panel, controls, colours, layout |
 | `<script>` tags | 17 | |
-| state and aliases | 159 | board, clock, castling rights, repetition table |
+| state and aliases | 181 | board, clock, castling rights, repetition table |
 | `G` | 264 | can this piece reach that square |
 | `V` | 51 | is this square attacked |
 | `L` | 101 | is this move legal — play it, ask, take it back |
 | `C` | 28 | which castling right a square forfeits |
-| `M` | 223 | counter, promotion, en passant victim, rook hop, en passant square |
+| `M` | 222 | counter, promotion, en passant victim, rook hop, en passant square |
 | `I`, `H` | 161 | material, and whether mate is possible at all |
 | `Z`, `D`, `F` | 151 | the verdict, the draw, the flag |
 | `j` | 62 | the clock |
-| setup | 154 | picker and the 64 cells, generated at load |
-| `d` | 558 | draw the board |
-| `A`, `Bt`, `S` | 281 | play the move, the buttons, the click |
+| setup | 71 | the 64 cells, generated at load |
+| `d` | 782 | draw the board, and the promotion picker on it |
+| `A`, `Bt`, `S` | 292 | play the move, the buttons, the click |
 | first draw and interval | 32 | |
-| **total** | **2,901** | |
+| **total** | **3,043** | |
 
-Sliced the other way: the rules come to **1,138** bytes and the page that shows them to **1,741**. The referee is cheap and the stage is expensive, which is exactly the argument the packed file makes.
+Sliced the other way: the rules come to **1,137** bytes and the page that shows them to **1,906**. The referee is cheap and the stage is expensive, which is exactly the argument the packed file makes.
 
 ## Verification
 
@@ -142,7 +142,7 @@ Both builds were checked by running them rather than by reading them. `index.htm
 - **All fourteen endings**, each one reached and checked — `TM` and `RM` among them, and the automatic `50` firing on ply 100 exactly.
 - **The two builds against each other**, twice over: 21,410 plies of step-by-step comparison on the rule layer, taking in 142,253 legal-move lists and the full state after every ply; then 50 complete games clicked out in Chrome and replayed digit by digit in the numerical build, 16,630 plies. Neither run turned up a difference.
 - **Markup**: the W3C Nu Html Checker returns zero errors and zero warnings on `index.html`. Standards mode, UTF-8, no BOM, not a single line break in the file.
-- **Rendering**, cell by cell in Chrome: a 568×568 board of 71×71 squares, the last move and the selection tinted correctly on light and dark squares alike, the check glow on the king's square and nowhere else, and the promotion band holding its space so the layout never jumps when it opens.
+- **Rendering**, cell by cell in Chrome: a 568×568 board of 71×71 squares, the last move and the selection tinted correctly on light and dark squares alike, the check glow on the king's square and nowhere else, and the promotion discs landing on the right four squares of the right file with all four pieces in the mover's colour, whatever stands underneath them.
 
 ## Unpacking
 
@@ -209,7 +209,7 @@ MIT
 
 # lichess-equivalent (Türkçe)
 
-FIDE'nin değil, **lichess'in kurallarıyla** hükmeden bir satranç hakemi; tek bir HTML dosyasında **2.901 bayt** — ve aynı hakemin tahtasından soyulmuş hâli, **1.228 baytta**. İki oyuncu, tek ekran. Kütüphane yok, derleme adımı yok, sunucu yok. Dosyayı indirin, çift tıklayın, oynayın.
+FIDE'nin değil, **lichess'in kurallarıyla** hükmeden bir satranç hakemi; tek bir HTML dosyasında **3.043 bayt** — ve aynı hakemin tahtasından soyulmuş hâli, **1.228 baytta**. İki oyuncu, tek ekran. Kütüphane yok, derleme adımı yok, sunucu yok. Dosyayı indirin, çift tıklayın, oynayın.
 
 İki kural kitabı birbirine yakındır ama aynı kitap değildir; yolların ayrıldığı her nokta aşağıda tek tek yazılı.
 
@@ -219,14 +219,14 @@ FIDE'nin değil, **lichess'in kurallarıyla** hükmeden bir satranç hakemi; tek
 
 | dosya | arayüz | bayt | GitHub Pages | proje sitesi |
 | --- | --- | --- | --- | --- |
-| `index.html` | tıklanabilir tahta, saat, lichess renkleri | 2.901 | [lichess-equivalent](https://cuneytinann.github.io/lichess-equivalent/) | [Lichess-equivalent.html](https://www.fidelite.art/special/outofLevels/Lichess-equivalent.html) |
+| `index.html` | tıklanabilir tahta, saat, lichess renkleri | 3.043 | [lichess-equivalent](https://cuneytinann.github.io/lichess-equivalent/) | [Lichess-equivalent.html](https://www.fidelite.art/special/Lichess-equivalent.html) |
 | `numerical_packed.html` | `prompt()` kutusuna yazılan kare numaraları, tahta yok | 1.228 | [numerical_packed.html](https://cuneytinann.github.io/lichess-equivalent/numerical_packed.html) | [Lichess-equivalent_numerical.html](https://www.fidelite.art/special/outofLevels/Lichess-equivalent_numerical.html) |
 
 Proje sitesinde iki sürüm de `special/outofLevels` altında, `L1`–`L3` merdiveninin bir kenarında durur. O merdivenin bir basamağı değildirler; başka bir kural kitabını izlerler.
 
 2020 sonu ve sonrasının her tarayıcısı çalıştırır: Chrome 85+, Firefox 79+, Safari 14+. Bu tabanı üç şey belirliyor — başlangıç dizilişinin yazıldığı BigInt; dar ekranda tahtanın erişilebilir kalmasını sağlayan `place-content`'teki `safe` anahtar sözcüğü; ve paketli sürümün kullandığı `||=` işleci.
 
-**Tahtayla.** Bir taşa tıklayın, sonra gitmesini istediğiniz kareye. Yasal kareler birer nokta alır, alabileceğiniz taş bir halka; çıktığınız ve indiğiniz kare boyalı kalır; şah altındaki şahın karesi kırmızı parlar. Her hamleden sonra tahta dönüp sırası gelene bakar. `½` beraberlik teklif eder, hakkınız varsa talep eder; `⚐` terk eder. Saat on dakikadan başlar ve her hamlede beş saniye geri verir.
+**Tahtayla.** Bir taşa tıklayın, sonra gitmesini istediğiniz kareye. Yasal kareler birer nokta alır, alabileceğiniz taş bir halka; çıktığınız ve indiğiniz kare boyalı kalır; şah altındaki şahın karesi kırmızı parlar. Her hamleden sonra tahta dönüp sırası gelene bakar. Bir piyon son yatayı bulduğunda indiği sütun seçiciye dönüşür: dört terfi seçeneği tahtanın üstünde, her biri gri bir diskin içinde alt alta durur, istediğinize tıklarsınız. `½` beraberlik teklif eder, hakkınız varsa talep eder — ve cevap sırası sizdeyken ya da konum üçüncü kez geldiğinde kendiliğinden yanar; `⚐` terk eder. İki denetim yan yana ve bilerek birbirine benzer: aynı boy, renk üstüne beyaz, beraberlikte yeşil, terkte kırmızı. Saat on dakikadan başlar ve her hamlede beş saniye geri verir.
 
 **Tahtasız.** `numerical_packed.html` hiçbir şey çizmez. Kareler a1'den h8'e doğru 1'den 64'e numaralıdır; hamle, iki numaranın uç uca yazılmış hâlidir: e2–e4 `1329` olur. Terfi için beşinci bir basamak eklersiniz — `0` fil, `1` kale, `2` at, başka bir şey vezir. Beraberlik de aynı yoldan teklif edilir: hamlenin sonuna rakam olmayan bir karakter iliştirirsiniz, `1329x` yazmak e2–e4'ü teklifle birlikte oynar. O karakteri tek başına yazarsanız teklif yine geçerlidir ama sıra sizde kalır, arkasından bir hamle borcunuz olur. Rakip aynı şekilde yanıt verirse beraberlik olur; düz bir hamle oynarsa teklifi reddetmiş ve silmiş olur. Konum daha önce üç kez oluştuysa aynı karakter üçlü tekrarı doğrudan talep eder. Terk etmek için kutuyu boş bırakın ya da İptal'e basın.
 
@@ -236,9 +236,9 @@ Proje sitesinde iki sürüm de `special/outofLevels` altında, `L1`–`L3` merdi
 
 Bunlar tam sürüm ile kırpılmış sürüm değil. Aynı oyun, aynı kurallar, aynı öz — ve **o özün gerçek bedeli 1.228 bayt.** Üstüne binen her şey satranç için değil, sizin için var.
 
-`index.html`'in paketli dosyanın ötesinde harcadığı 1.673 bayt şunu satın alıyor: gördüğünüz bir tahta, tıkladığınız taşlar, işleyen bir saat, bir terfi seçicisi, hangi karenin açık olduğunu söyleyen renkler. Hepsini soyun, tek bir kural yerinden oynamaz. Mat yine mattır, geçerken alma yine geçerken almadır, elli hamle sayacı yine tam aynı yarım hamlede dolar.
+`index.html`'in paketli dosyanın ötesinde harcadığı 1.815 bayt şunu satın alıyor: gördüğünüz bir tahta, tıkladığınız taşlar, işleyen bir saat, tahtanın üstüne çizilen bir terfi seçicisi, hangi karenin açık olduğunu söyleyen renkler. Hepsini soyun, tek bir kural yerinden oynamaz. Mat yine mattır, geçerken alma yine geçerken almadır, elli hamle sayacı yine tam aynı yarım hamlede dolar.
 
-Yani iki dosya iki ayrı soruya yanıt veriyor. *Bir satranç oyununu yönetmenin bedeli nedir?* Bin iki yüz bayt. *Bir insanın o oyundan keyif almasının bedeli nedir?* Bin altı yüz bayt daha.
+Yani iki dosya iki ayrı soruya yanıt veriyor. *Bir satranç oyununu yönetmenin bedeli nedir?* Bin iki yüz bayt. *Bir insanın o oyundan keyif almasının bedeli nedir?* Bin sekiz yüz bayt daha.
 
 Bu, iddia edilmektense ölçülmeyi hak eden bir cümle; o yüzden iki sürüm yan yana koşturuldu. Önce kural katmanları, hamle hamle: 21.410 yarım hamle boyunca sırası gelen tarafın her taşının yasal hamle listesi kare kare karşılaştırıldı, her hamleden sonra da tahta, sıra, geçerken alma karesi, rok hakları, yarım hamle sayacı ve materyal hükümleri. 142.253 karşılaştırma, tek bir ayrılık yok. Sonra elli tam oyun: Chrome'da tıklanarak oynandı ve `prompt()` kutusuna basamak basamak yeniden girildi — 16.630 yarım hamle, her seferinde aynı sonuç kodu.
 
@@ -322,24 +322,24 @@ Tam FIDE hakemi için — on beş kod, ölü pozisyonlar, sekiz arayüz — [fid
 
 | parça | bayt | |
 | --- | --- | --- |
-| markup ve CSS | 637 | tahta, panel, seçici, renkler, yerleşim |
+| markup ve CSS | 629 | tahta, panel, denetimler, renkler, yerleşim |
 | `<script>` etiketleri | 17 | |
-| durum ve takma adlar | 159 | tahta, saat, rok hakları, tekrar tablosu |
+| durum ve takma adlar | 181 | tahta, saat, rok hakları, tekrar tablosu |
 | `G` | 264 | bu taş o kareye ulaşabilir mi |
 | `V` | 51 | bu kare tehdit altında mı |
 | `L` | 101 | bu hamle yasal mı — oyna, sor, geri al |
 | `C` | 28 | bir karenin düşürdüğü rok hakkı |
-| `M` | 223 | sayaç, terfi, geçerken alınan piyon, kale sıçraması, geçerken alma karesi |
+| `M` | 222 | sayaç, terfi, geçerken alınan piyon, kale sıçraması, geçerken alma karesi |
 | `I`, `H` | 161 | materyal ve matın mümkün olup olmadığı |
 | `Z`, `D`, `F` | 151 | hüküm, beraberlik, bayrak |
 | `j` | 62 | saat |
-| kurulum | 154 | seçici ve 64 hücre, açılışta üretiliyor |
-| `d` | 558 | tahtayı çiz |
-| `A`, `Bt`, `S` | 281 | hamleyi oyna, düğmeler, tıklama |
+| kurulum | 71 | 64 hücre, açılışta üretiliyor |
+| `d` | 782 | tahtayı ve üstündeki terfi seçicisini çiz |
+| `A`, `Bt`, `S` | 292 | hamleyi oyna, düğmeler, tıklama |
 | ilk çizim ve interval | 32 | |
-| **toplam** | **2.901** | |
+| **toplam** | **3.043** | |
 
-Başka türlü bölersek: kurallar **1.138** bayt, onları gösteren sayfa **1.741**. Hakem ucuz, sahne pahalı — paketli dosyanın öne sürdüğü şey tam olarak bu.
+Başka türlü bölersek: kurallar **1.137** bayt, onları gösteren sayfa **1.906**. Hakem ucuz, sahne pahalı — paketli dosyanın öne sürdüğü şey tam olarak bu.
 
 ## Doğrulama
 
@@ -349,7 +349,7 @@ Başka türlü bölersek: kurallar **1.138** bayt, onları gösteren sayfa **1.7
 - **On dört bitişin hepsi**, tek tek üretilip sınandı — aralarında `TM` ile `RM` ve tam 100. yarım hamlede tetiklenen otomatik `50` de var.
 - **İki sürüm birbirine karşı**, iki ayrı biçimde: kural katmanında 21.410 yarım hamlelik adım adım karşılaştırma, 142.253 yasal hamle listesi ve her hamleden sonra tam durum; ardından Chrome'da tıklanarak oynanıp sayısal sürümde basamak basamak tekrarlanan 50 tam oyun, 16.630 yarım hamle. İki koşuda da fark çıkmadı.
 - **Markup**: W3C Nu Html Checker `index.html` için sıfır hata, sıfır uyarı veriyor. Standart mod, UTF-8, BOM yok, dosyada tek bir satır sonu bile yok.
-- **Çizim**, Chrome'da hücre hücre: 71×71 karelerden oluşan 568×568 tahta; son hamle ve seçim açık ve koyu karelerde ayrı ayrı doğru tonda; şah parlaması yalnız şahın karesinde; terfi bandı yerini koruduğu için açıldığında yerleşim zıplamıyor.
+- **Çizim**, Chrome'da hücre hücre: 71×71 karelerden oluşan 568×568 tahta; son hamle ve seçim açık ve koyu karelerde ayrı ayrı doğru tonda; şah parlaması yalnız şahın karesinde; terfi diskleri doğru sütunun doğru dört karesine oturuyor ve dört taş da altlarında ne olursa olsun hamleyi yapanın renginde çıkıyor.
 
 ## Paketi açma
 
