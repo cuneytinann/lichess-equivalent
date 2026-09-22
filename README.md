@@ -2,7 +2,7 @@
 
 # lichess-equivalent
 
-A chess arbiter that plays by **lichess's rules** rather than FIDE's, in a single HTML file of **3,043 bytes** — and the same arbiter stripped of its board, in **1,228**. Two players, one screen. No libraries, no build step, no server. Download a file, double-click, play.
+A chess arbiter that plays by **lichess's rules** rather than FIDE's, in a single HTML file of **3,044 bytes** — and the same arbiter stripped of its board, in **1,228**. Two players, one screen. No libraries, no build step, no server. Download a file, double-click, play.
 
 The two rulebooks are close, but they are not the same book, and every place they part ways is written down below.
 
@@ -12,7 +12,7 @@ Part of the [Golfstack](https://www.fidelite.art/) project.
 
 | file | interface | bytes | GitHub Pages | project site |
 | --- | --- | --- | --- | --- |
-| `index.html` | clickable board, clock, lichess colours | 3,043 | [lichess-equivalent](https://cuneytinann.github.io/lichess-equivalent/) | [Lichess-equivalent.html](https://www.fidelite.art/special/Lichess-equivalent.html) |
+| `index.html` | clickable board, clock, lichess colours | 3,044 | [lichess-equivalent](https://cuneytinann.github.io/lichess-equivalent/) | [Lichess-equivalent.html](https://www.fidelite.art/special/Lichess-equivalent.html) |
 | `numerical_packed.html` | square numbers typed into a `prompt()` box, no board | 1,228 | [numerical_packed.html](https://cuneytinann.github.io/lichess-equivalent/numerical_packed.html) | [Lichess-equivalent_numerical.html](https://www.fidelite.art/special/outofLevels/Lichess-equivalent_numerical.html) |
 
 On the project site both builds live under `special/outofLevels`, off to the side of the `L1`–`L3` ladder. They are not another rung on it; they follow a different rulebook.
@@ -122,7 +122,7 @@ Every byte of `index.html`, by part.
 | `V` | 51 | is this square attacked |
 | `L` | 101 | is this move legal — play it, ask, take it back |
 | `C` | 28 | which castling right a square forfeits |
-| `M` | 222 | counter, promotion, en passant victim, rook hop, en passant square |
+| `M` | 223 | counter, promotion, en passant victim, rook hop, en passant square |
 | `I`, `H` | 161 | material, and whether mate is possible at all |
 | `Z`, `D`, `F` | 151 | the verdict, the draw, the flag |
 | `j` | 62 | the clock |
@@ -130,9 +130,9 @@ Every byte of `index.html`, by part.
 | `d` | 782 | draw the board, and the promotion picker on it |
 | `A`, `Bt`, `S` | 292 | play the move, the buttons, the click |
 | first draw and interval | 32 | |
-| **total** | **3,043** | |
+| **total** | **3,044** | |
 
-Sliced the other way: the rules come to **1,137** bytes and the page that shows them to **1,906**. The referee is cheap and the stage is expensive, which is exactly the argument the packed file makes.
+Sliced the other way: the rules come to **1,138** bytes and the page that shows them to **1,906**. The referee is cheap and the stage is expensive, which is exactly the argument the packed file makes.
 
 ## Verification
 
@@ -209,7 +209,7 @@ MIT
 
 # lichess-equivalent (Türkçe)
 
-FIDE'nin değil, **lichess'in kurallarıyla** hükmeden bir satranç hakemi; tek bir HTML dosyasında **3.043 bayt** — ve aynı hakemin tahtasından soyulmuş hâli, **1.228 baytta**. İki oyuncu, tek ekran. Kütüphane yok, derleme adımı yok, sunucu yok. Dosyayı indirin, çift tıklayın, oynayın.
+FIDE'nin değil, **lichess'in kurallarıyla** hükmeden bir satranç hakemi; tek bir HTML dosyasında **3.044 bayt** — ve aynı hakemin tahtasından soyulmuş hâli, **1.228 baytta**. İki oyuncu, tek ekran. Kütüphane yok, derleme adımı yok, sunucu yok. Dosyayı indirin, çift tıklayın, oynayın.
 
 İki kural kitabı birbirine yakındır ama aynı kitap değildir; yolların ayrıldığı her nokta aşağıda tek tek yazılı.
 
@@ -219,7 +219,7 @@ FIDE'nin değil, **lichess'in kurallarıyla** hükmeden bir satranç hakemi; tek
 
 | dosya | arayüz | bayt | GitHub Pages | proje sitesi |
 | --- | --- | --- | --- | --- |
-| `index.html` | tıklanabilir tahta, saat, lichess renkleri | 3.043 | [lichess-equivalent](https://cuneytinann.github.io/lichess-equivalent/) | [Lichess-equivalent.html](https://www.fidelite.art/special/Lichess-equivalent.html) |
+| `index.html` | tıklanabilir tahta, saat, lichess renkleri | 3.044 | [lichess-equivalent](https://cuneytinann.github.io/lichess-equivalent/) | [Lichess-equivalent.html](https://www.fidelite.art/special/Lichess-equivalent.html) |
 | `numerical_packed.html` | `prompt()` kutusuna yazılan kare numaraları, tahta yok | 1.228 | [numerical_packed.html](https://cuneytinann.github.io/lichess-equivalent/numerical_packed.html) | [Lichess-equivalent_numerical.html](https://www.fidelite.art/special/outofLevels/Lichess-equivalent_numerical.html) |
 
 Proje sitesinde iki sürüm de `special/outofLevels` altında, `L1`–`L3` merdiveninin bir kenarında durur. O merdivenin bir basamağı değildirler; başka bir kural kitabını izlerler.
@@ -329,7 +329,7 @@ Tam FIDE hakemi için — on beş kod, ölü pozisyonlar, sekiz arayüz — [fid
 | `V` | 51 | bu kare tehdit altında mı |
 | `L` | 101 | bu hamle yasal mı — oyna, sor, geri al |
 | `C` | 28 | bir karenin düşürdüğü rok hakkı |
-| `M` | 222 | sayaç, terfi, geçerken alınan piyon, kale sıçraması, geçerken alma karesi |
+| `M` | 223 | sayaç, terfi, geçerken alınan piyon, kale sıçraması, geçerken alma karesi |
 | `I`, `H` | 161 | materyal ve matın mümkün olup olmadığı |
 | `Z`, `D`, `F` | 151 | hüküm, beraberlik, bayrak |
 | `j` | 62 | saat |
@@ -337,9 +337,9 @@ Tam FIDE hakemi için — on beş kod, ölü pozisyonlar, sekiz arayüz — [fid
 | `d` | 782 | tahtayı ve üstündeki terfi seçicisini çiz |
 | `A`, `Bt`, `S` | 292 | hamleyi oyna, düğmeler, tıklama |
 | ilk çizim ve interval | 32 | |
-| **toplam** | **3.043** | |
+| **toplam** | **3.044** | |
 
-Başka türlü bölersek: kurallar **1.137** bayt, onları gösteren sayfa **1.906**. Hakem ucuz, sahne pahalı — paketli dosyanın öne sürdüğü şey tam olarak bu.
+Başka türlü bölersek: kurallar **1.138** bayt, onları gösteren sayfa **1.906**. Hakem ucuz, sahne pahalı — paketli dosyanın öne sürdüğü şey tam olarak bu.
 
 ## Doğrulama
 
