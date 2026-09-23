@@ -13,9 +13,9 @@ Part of the [Golfstack](https://www.fidelite.art/) project.
 | file | interface | bytes | GitHub Pages | project site |
 | --- | --- | --- | --- | --- |
 | `index.html` | clickable board, clock, lichess colours | 3,044 | [lichess-equivalent](https://cuneytinann.github.io/lichess-equivalent/) | [Lichess-equivalent.html](https://www.fidelite.art/special/Lichess-equivalent.html) |
-| `numerical_packed.html` | square numbers typed into a `prompt()` box, no board | 1,228 | [numerical_packed.html](https://cuneytinann.github.io/lichess-equivalent/numerical_packed.html) | [Lichess-equivalent_numerical.html](https://www.fidelite.art/special/outofLevels/Lichess-equivalent_numerical.html) |
+| `numerical_packed.html` | square numbers typed into a `prompt()` box, no board | 1,228 | [numerical_packed.html](https://cuneytinann.github.io/lichess-equivalent/numerical_packed.html) | [Lichess-equivalent_numerical.html](https://www.fidelite.art/special/Lichess-equivalent_numerical.html) |
 
-On the project site both builds live under `special/outofLevels`, off to the side of the `L1`–`L3` ladder. They are not another rung on it; they follow a different rulebook.
+On the project site both builds live under `special/`, off to the side of the `L1`–`L3` ladder. They are not another rung on it; they follow a different rulebook.
 
 Anything from late 2020 onwards will run them: Chrome 85+, Firefox 79+, Safari 14+. Three things set that floor — BigInt, which the starting position is written with; the `safe` keyword in `place-content`, which keeps the board reachable on a narrow screen; and the `||=` operator, which the packed build uses.
 
@@ -220,9 +220,9 @@ FIDE'nin değil, **lichess'in kurallarıyla** hükmeden bir satranç hakemi; tek
 | dosya | arayüz | bayt | GitHub Pages | proje sitesi |
 | --- | --- | --- | --- | --- |
 | `index.html` | tıklanabilir tahta, saat, lichess renkleri | 3.044 | [lichess-equivalent](https://cuneytinann.github.io/lichess-equivalent/) | [Lichess-equivalent.html](https://www.fidelite.art/special/Lichess-equivalent.html) |
-| `numerical_packed.html` | `prompt()` kutusuna yazılan kare numaraları, tahta yok | 1.228 | [numerical_packed.html](https://cuneytinann.github.io/lichess-equivalent/numerical_packed.html) | [Lichess-equivalent_numerical.html](https://www.fidelite.art/special/outofLevels/Lichess-equivalent_numerical.html) |
+| `numerical_packed.html` | `prompt()` kutusuna yazılan kare numaraları, tahta yok | 1.228 | [numerical_packed.html](https://cuneytinann.github.io/lichess-equivalent/numerical_packed.html) | [Lichess-equivalent_numerical.html](https://www.fidelite.art/special/Lichess-equivalent_numerical.html) |
 
-Proje sitesinde iki sürüm de `special/outofLevels` altında, `L1`–`L3` merdiveninin bir kenarında durur. O merdivenin bir basamağı değildirler; başka bir kural kitabını izlerler.
+Proje sitesinde iki sürüm de `special/` altında, `L1`–`L3` merdiveninin bir kenarında durur. O merdivenin bir basamağı değildirler; başka bir kural kitabını izlerler.
 
 2020 sonu ve sonrasının her tarayıcısı çalıştırır: Chrome 85+, Firefox 79+, Safari 14+. Bu tabanı üç şey belirliyor — başlangıç dizilişinin yazıldığı BigInt; dar ekranda tahtanın erişilebilir kalmasını sağlayan `place-content`'teki `safe` anahtar sözcüğü; ve paketli sürümün kullandığı `||=` işleci.
 
