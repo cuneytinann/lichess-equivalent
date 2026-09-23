@@ -21,7 +21,7 @@ Anything from late 2020 onwards will run them: Chrome 85+, Firefox 79+, Safari 1
 
 **On the board.** Click a piece, then click where it should go. Legal squares pick up a dot, a piece you can take picks up a ring, the square you came from and the square you landed on stay tinted, and a king in check glows red. After every move the board turns around to face whoever is to play. When a pawn reaches the last rank the file it landed on turns into the picker: the four promotion choices sit stacked on the board itself, each on a grey disc, and you click the one you want. `½` offers a draw, or claims one when you are entitled to it, and it lights up on its own when the offer is yours to answer or the position has come round for the third time; `⚐` resigns. The two controls sit side by side and look alike on purpose — same height, white on colour, green for the draw and red for the resignation. The clock starts at ten minutes and hands back five seconds a move.
 
-**Without the board.** `numerical_packed.html` draws nothing at all. Squares are numbered 1 to 64, a1 through h8, and a move is the two numbers written end to end: e2–e4 is `1329`. To promote, add a fifth digit — `0` bishop, `1` rook, `2` knight, anything else queen. A draw is offered the same way, by hanging a non-digit on the end of the move: `1329x` plays e2–e4 with an offer attached. Type the non-digit on its own and the offer still stands, but you owe a move afterwards. The opponent accepts by answering in kind; a plain move declines it and wipes it off. If the position has already come up three times, that same non-digit claims the threefold outright. To resign, leave the box empty or press Cancel.
+**Without the board.** `numerical_packed.html` draws nothing at all. Squares are numbered 0 to 63, a1 through h8 — the engine's own indices — and a move is the two numbers written end to end: e2–e4 is `1228`. To promote, add a fifth digit — `0` bishop, `1` rook, `2` knight, anything else queen. A draw is offered the same way, by hanging a non-digit on the end of the move: `1228x` plays e2–e4 with an offer attached. Type the non-digit on its own and the offer still stands, but you owe a move afterwards. The opponent accepts by answering in kind; a plain move declines it and wipes it off. If the position has already come up three times, that same non-digit claims the threefold outright. To resign, leave the box empty or press Cancel.
 
 That is the one place the two builds part company, and it is a difference of gesture rather than of rule. On the board a draw offer is a standing flag you raise with `½` and lower the same way; in the dialog it rides along with a move. Either way the arbiter reads the same two bits, and either way the opponent's plain move turns the offer down. The dialog title carries White's clock, Black's clock and the last move you got past the arbiter, so when an illegal move is quietly refused you will see that the last one never changed. Both clocks start at 900,000 milliseconds — fifteen minutes, no increment — and they keep running while the dialog is open, so thinking costs you what it would over the board. Keeping track of the position is your job.
 
@@ -143,6 +143,7 @@ Both builds were checked by running them rather than by reading them. `index.htm
 - **The two builds against each other**, twice over: 21,410 plies of step-by-step comparison on the rule layer, taking in 142,253 legal-move lists and the full state after every ply; then 50 complete games clicked out in Chrome and replayed digit by digit in the numerical build, 16,630 plies. Neither run turned up a difference.
 - **Markup**: the W3C Nu Html Checker returns zero errors and zero warnings on `index.html`. Standards mode, UTF-8, no BOM, not a single line break in the file.
 - **Rendering**, cell by cell in Chrome: a 568×568 board of 71×71 squares, the last move and the selection tinted correctly on light and dark squares alike, the check glow on the king's square and nowhere else, and the promotion discs landing on the right four squares of the right file with all four pieces in the mover's colour, whatever stands underneath them.
+- **The switch to 0–63.** When the square numbering moved from 1–64 to 0–63, `numerical_packed.html` was repacked with the settings below and run in lock step against the previous file — the old one fed 1–64, the new one the same squares in 0–63 — over 100 games and 11,540 plies, comparing the full state after every ply: no difference. perft to depth 3 on the five standard positions passes, and so do scripted checks on invalid input: `-1`, the same square twice, off-board squares, a pawn sent past the last rank.
 
 ## Unpacking
 
@@ -169,7 +170,7 @@ Nothing in the loop touches the game, so it is safe to do this in Node. What fal
 | `crushTiebreakerFactor` | `0` |
 | `useES6` | `true` |
 
-Stage 2 wins, the regexp character class: `[\x01-\x1f@Aj_ZX]`, 37 tokens, 35 substitution rounds. The bytes land like this:
+Stage 2 wins, the regexp character class: `[\x01-\x1f@Aj_ZXV]`, 38 tokens, 36 substitution rounds. The bytes land like this:
 
 ```
    8 B  <script>
@@ -179,7 +180,7 @@ Stage 2 wins, the regexp character class: `[\x01-\x1f@Aj_ZX]`, 37 tokens, 35 sub
 1228 B
 ```
 
-Turning `reassignVars` on saves three bytes and brings the file down to 1,225. It stays off: the renamer spends `R` through `W` as dictionary tokens, so the source that comes back out has had its variables shuffled and no longer reads as the program anyone wrote. Three bytes do not buy that back.
+Turning `reassignVars` on saves four bytes and brings the file down to 1,224. It stays off: the renamer spends `R` through `X` as dictionary tokens, so the source that comes back out has had its variables shuffled and no longer reads as the program anyone wrote. Four bytes do not buy that back.
 
 ### The packed file was not built from the shortest source
 
@@ -228,7 +229,7 @@ Proje sitesinde iki sürüm de `special/` altında, `L1`–`L3` merdiveninin bir
 
 **Tahtayla.** Bir taşa tıklayın, sonra gitmesini istediğiniz kareye. Yasal kareler birer nokta alır, alabileceğiniz taş bir halka; çıktığınız ve indiğiniz kare boyalı kalır; şah altındaki şahın karesi kırmızı parlar. Her hamleden sonra tahta dönüp sırası gelene bakar. Bir piyon son yatayı bulduğunda indiği sütun seçiciye dönüşür: dört terfi seçeneği tahtanın üstünde, her biri gri bir diskin içinde alt alta durur, istediğinize tıklarsınız. `½` beraberlik teklif eder, hakkınız varsa talep eder — ve cevap sırası sizdeyken ya da konum üçüncü kez geldiğinde kendiliğinden yanar; `⚐` terk eder. İki denetim yan yana ve bilerek birbirine benzer: aynı boy, renk üstüne beyaz, beraberlikte yeşil, terkte kırmızı. Saat on dakikadan başlar ve her hamlede beş saniye geri verir.
 
-**Tahtasız.** `numerical_packed.html` hiçbir şey çizmez. Kareler a1'den h8'e doğru 1'den 64'e numaralıdır; hamle, iki numaranın uç uca yazılmış hâlidir: e2–e4 `1329` olur. Terfi için beşinci bir basamak eklersiniz — `0` fil, `1` kale, `2` at, başka bir şey vezir. Beraberlik de aynı yoldan teklif edilir: hamlenin sonuna rakam olmayan bir karakter iliştirirsiniz, `1329x` yazmak e2–e4'ü teklifle birlikte oynar. O karakteri tek başına yazarsanız teklif yine geçerlidir ama sıra sizde kalır, arkasından bir hamle borcunuz olur. Rakip aynı şekilde yanıt verirse beraberlik olur; düz bir hamle oynarsa teklifi reddetmiş ve silmiş olur. Konum daha önce üç kez oluştuysa aynı karakter üçlü tekrarı doğrudan talep eder. Terk etmek için kutuyu boş bırakın ya da İptal'e basın.
+**Tahtasız.** `numerical_packed.html` hiçbir şey çizmez. Kareler a1'den h8'e doğru 0'dan 63'e numaralıdır — motorun kendi indeksleri; hamle, iki numaranın uç uca yazılmış hâlidir: e2–e4 `1228` olur. Terfi için beşinci bir basamak eklersiniz — `0` fil, `1` kale, `2` at, başka bir şey vezir. Beraberlik de aynı yoldan teklif edilir: hamlenin sonuna rakam olmayan bir karakter iliştirirsiniz, `1228x` yazmak e2–e4'ü teklifle birlikte oynar. O karakteri tek başına yazarsanız teklif yine geçerlidir ama sıra sizde kalır, arkasından bir hamle borcunuz olur. Rakip aynı şekilde yanıt verirse beraberlik olur; düz bir hamle oynarsa teklifi reddetmiş ve silmiş olur. Konum daha önce üç kez oluştuysa aynı karakter üçlü tekrarı doğrudan talep eder. Terk etmek için kutuyu boş bırakın ya da İptal'e basın.
 
 İki sürümün ayrıştığı tek yer burası ve bu bir kural farkı değil, bir jest farkı. Tahtada beraberlik teklifi `½` ile kaldırıp yine `½` ile indirdiğiniz, havada duran bir bayraktır; iletişim kutusunda ise hamleye binerek gider. İki durumda da hakem aynı iki biti okur ve iki durumda da rakibin düz hamlesi teklifi reddeder. İletişim kutusunun başlığında Beyaz'ın saati, Siyah'ın saati ve hakemden geçirebildiğiniz son hamle durur; yasadışı bir hamle sessizce reddedildiğinde sonuncunun hiç değişmediğini oradan anlarsınız. İki saat de 900.000 milisaniyeden başlar — artırımsız on beş dakika — ve kutu açıkken işlemeyi sürdürür, yani düşünmek size tahta başındaki kadara mal olur. Konumu takip etmek ise tümüyle sizin işiniz.
 
@@ -350,6 +351,7 @@ Başka türlü bölersek: kurallar **1.138** bayt, onları gösteren sayfa **1.9
 - **İki sürüm birbirine karşı**, iki ayrı biçimde: kural katmanında 21.410 yarım hamlelik adım adım karşılaştırma, 142.253 yasal hamle listesi ve her hamleden sonra tam durum; ardından Chrome'da tıklanarak oynanıp sayısal sürümde basamak basamak tekrarlanan 50 tam oyun, 16.630 yarım hamle. İki koşuda da fark çıkmadı.
 - **Markup**: W3C Nu Html Checker `index.html` için sıfır hata, sıfır uyarı veriyor. Standart mod, UTF-8, BOM yok, dosyada tek bir satır sonu bile yok.
 - **Çizim**, Chrome'da hücre hücre: 71×71 karelerden oluşan 568×568 tahta; son hamle ve seçim açık ve koyu karelerde ayrı ayrı doğru tonda; şah parlaması yalnız şahın karesinde; terfi diskleri doğru sütunun doğru dört karesine oturuyor ve dört taş da altlarında ne olursa olsun hamleyi yapanın renginde çıkıyor.
+- **0–63'e geçiş.** Kare numaraları 1–64'ten 0–63'e geçerken `numerical_packed.html` aşağıdaki ayarlarla yeniden paketlendi ve önceki dosyayla kilit adımlı koşturuldu — eskisine 1–64, yenisine aynı kareler 0–63 olarak verildi — 100 oyunda 11.540 yarım hamle boyunca her hamleden sonra tam durum karşılaştırıldı: fark yok. Beş standart pozisyonda 3. derinliğe kadar perft geçiyor; geçersiz girdi senaryoları da geçiyor: `-1`, aynı kareye gidiş, tahta dışı kareler, son yatayın ötesine sürülen piyon.
 
 ## Paketi açma
 
@@ -376,7 +378,7 @@ Döngünün içinde oyuna dokunan hiçbir şey yok, bunu Node'da yapmak güvenli
 | `crushTiebreakerFactor` | `0` |
 | `useES6` | `true` |
 
-Kazanan aşama 2, yani düzenli ifade karakter sınıfı: `[\x01-\x1f@Aj_ZX]`, 37 token, 35 değiştirme turu. Baytlar şöyle yerleşiyor:
+Kazanan aşama 2, yani düzenli ifade karakter sınıfı: `[\x01-\x1f@Aj_ZXV]`, 38 token, 36 değiştirme turu. Baytlar şöyle yerleşiyor:
 
 ```
    8 B  <script>
@@ -386,7 +388,7 @@ Kazanan aşama 2, yani düzenli ifade karakter sınıfı: `[\x01-\x1f@Aj_ZX]`, 3
 1228 B
 ```
 
-`reassignVars`'ı açmak üç bayt kazandırıp dosyayı 1.225'e indiriyor. Yine de kapalı: yeniden adlandırıcı `R`–`W` harflerini sözlük tokeni olarak harcıyor, geri çıkan kaynağın değişkenleri karışmış oluyor ve metin artık kimsenin yazdığı program gibi okunmuyor. Üç bayt bunu geri satın almaya yetmez.
+`reassignVars`'ı açmak dört bayt kazandırıp dosyayı 1.224'e indiriyor. Yine de kapalı: yeniden adlandırıcı `R`–`X` harflerini sözlük tokeni olarak harcıyor, geri çıkan kaynağın değişkenleri karışmış oluyor ve metin artık kimsenin yazdığı program gibi okunmuyor. Dört bayt bunu geri satın almaya yetmez.
 
 ### Paketli dosya en kısa kaynaktan kurulmadı
 
